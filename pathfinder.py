@@ -43,15 +43,17 @@ class Point:
             self.neighbors.append(grid[self.i][j - 1])
 
 
+# Colors
+red = (255, 0, 0)
+green = (49, 203, 27)
+blue = (0, 0, 255)
+grey = (220, 220, 220)
+
 cols = 50
 grid = [0 for i in range(cols)]
 row = 50
 openSet = []
 closedSet = []
-red = (255, 0, 0)
-green = (49, 203, 27)
-blue = (0, 0, 255)
-grey = (220, 220, 220)
 w = 600 / cols
 h = 600 / row
 cameFrom = []
@@ -60,20 +62,23 @@ cameFrom = []
 for i in range(cols):
     grid[i] = [0 for i in range(row)]
 
-
+# Create a Point with x and y for each 'cell' in the grid
 for i in range(cols):
     for j in range(row):
         grid[i][j] = Point(i, j)
 
 
+# Default start and end point if none are selected
 start = grid[7][12]
 end = grid[38][41]
 
+# Show the points on the screen
 for i in range(cols):
     for j in range(row):
         grid[i][j].show((255, 255, 255), 1)
 
-for i in range(0,row):
+# Draw border and disable those points
+for i in range(0, row):
     grid[0][i].show(grey, 0)
     grid[0][i].obs = True
     grid[cols-1][i].obs = True
@@ -83,7 +88,7 @@ for i in range(0,row):
     grid[i][0].obs = True
     grid[i][row-1].obs = True
 
-
+# Set custom start and finish
 def onsubmit():
     global start
     global end
@@ -153,6 +158,7 @@ while loop:
                 loop = False
                 break
 
+# Set left, right, bottom and top neighbor for each point
 for i in range(cols):
     for j in range(row):
         grid[i][j].add_neighbors(grid)
@@ -174,7 +180,6 @@ def main():
 
         current = openSet[lowest_index]
         if current == end:
-            print('done', current.f)
             start.show((255, 213, 0),0)
             temp = current.f
             for i in range(round(current.f)):
